@@ -14,7 +14,8 @@ public class UserEntity {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+    @Column(name = "ID")
+    private String userId;
     @Column(name = "FIRSTNAME")
     private String firstName;
     @Column(name = "LASTNAME")
@@ -28,12 +29,12 @@ public class UserEntity {
     @Column(name = "EMAIL_VERIFICATION_STATUS")
     private Boolean emailVerificationStatus=false;
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {

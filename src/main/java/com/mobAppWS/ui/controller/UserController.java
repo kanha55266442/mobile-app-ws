@@ -1,6 +1,7 @@
 package com.mobAppWS.ui.controller;
 
 import com.mobAppWS.ui.model.request.UserDetailsRequestModel;
+import com.mobAppWS.ui.model.request.UserLoginRequestModel;
 import com.mobAppWS.ui.model.response.UserRest;
 import com.mobAppWS.ui.service.UserService;
 import com.mobAppWS.ui.shared.dto.UserDto;
