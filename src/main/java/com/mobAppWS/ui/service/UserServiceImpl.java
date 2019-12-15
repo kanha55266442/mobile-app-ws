@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -40,6 +41,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         UserDto returnValue=new UserDto();
         returnValue.setUserID(userEntity.getUserId());
         BeanUtils.copyProperties(userEntity,returnValue);
+        return returnValue;
+    }
+
+    @Override
+    public UserDto getUserByUserId(String id) {
+        Optional<UserEntity> entityOptional = userRepository.findById(id);
+        UserEntity userById=entityOptional.get();
+        UserDto returnValue=new UserDto();
+        returnValue.setUserID(userById.getUserId());
+        BeanUtils.copyProperties(userById,returnValue);
         return returnValue;
     }
 
