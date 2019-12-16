@@ -1,7 +1,9 @@
 package com.mobAppWS.ui.controller;
 
+import com.mobAppWS.ui.exceptions.UserServiceException;
 import com.mobAppWS.ui.model.request.UserDetailsRequestModel;
 import com.mobAppWS.ui.model.request.UserLoginRequestModel;
+import com.mobAppWS.ui.model.response.ErrorMessages;
 import com.mobAppWS.ui.model.response.UserRest;
 import com.mobAppWS.ui.service.UserService;
 import com.mobAppWS.ui.shared.dto.UserDto;
@@ -20,6 +22,7 @@ public class UserController {
             /*
             *To provide support for both xml and json format
             */
+            consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
     )
     public UserRest getUser(@PathVariable String id) {
@@ -36,8 +39,11 @@ public class UserController {
             consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
             )
-    public UserRest createUser(@RequestBody UserDetailsRequestModel request) {
+    public UserRest createUser(@RequestBody UserDetailsRequestModel request)throws Exception {
         UserRest returnValue = new UserRest();
+        if (request.getEmail().isEmpty()){
+            throw new UserServiceException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
+        }
         UserDto userDto = new UserDto();
         //BeanUtils is a spring framework class that have a static copyProperties(Object source, Object target) to copy source to target
         BeanUtils.copyProperties(request, userDto);
